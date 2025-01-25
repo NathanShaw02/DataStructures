@@ -28,6 +28,7 @@ class LinkedList{
     void append(char dataInp);
     void print();
     void pop();
+    void removeHead();
     char returnElementData(int element);
     bool linearSearch(char userInp);
 };
@@ -95,6 +96,16 @@ void LinkedList::pop(){
     }
 }
 
+void LinkedList::removeHead(){
+    Node* oldHead = head;
+    if(head==NULL){ //if list empty (EG First element is empty)...
+    std::cout<<"List is empty, nothing to remove!";
+    }else{
+        head = head->next;
+        delete oldHead;
+    }
+}
+
 char LinkedList::returnElementData(int targetElement){
     int i = 0;
     Node* currentNode = head;
@@ -126,7 +137,6 @@ bool LinkedList::linearSearch(char userInp){
 }
 
 class Stack :public LinkedList{//Creating a stack using my linked list data structure (FILO)
-    //Node* head;//head = bottom of stack
     
     public:
 
@@ -157,7 +167,21 @@ void Stack::add(char userInp){
 }
 
 void Stack::remove(){
-    Node* oldHead = head;
-    head = head->next;
-    delete oldHead;
+    this->removeHead();
 }
+
+//creating a FIFO data structure using my linked list
+class Queue : public LinkedList{
+    public:
+    void add(char inp);
+    void remove();
+};
+
+void Queue::add(char inp){
+    this->append(inp);
+}
+
+void Queue::remove(){
+    this->removeHead();
+}
+
