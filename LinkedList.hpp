@@ -20,12 +20,13 @@ Node::Node(char dataInp){
 }
 
 class LinkedList{
-    Node* head; //defines the pointer head. This should always point at the first element of the list
+    //Node* head; //defines the pointer head. This should always point at the first element of the list
     public:
+    Node* head; //defines the pointer head. This should always point at the first element of the list
     LinkedList();
     void insertAtHead(char dataInp);
     void append(char dataInp);
-    void printList();
+    void print();
     void pop();
     char returnElementData(int element);
     bool linearSearch(char userInp);
@@ -49,7 +50,7 @@ void LinkedList::insertAtHead(char dataInp){
     }
 }
 
-void LinkedList::printList(){
+void LinkedList::print(){
     Node* temp = head;//makes a temporary variable that we will use to iterate over the list, beginning at the head
 
     if(head==NULL){
@@ -122,4 +123,41 @@ bool LinkedList::linearSearch(char userInp){
         }
         return false;
     }
+}
+
+class Stack :public LinkedList{//Creating a stack using my linked list data structure (FILO)
+    //Node* head;//head = bottom of stack
+    
+    public:
+
+    Stack();
+    Stack(char inp);
+    void add(char userInp);
+    void remove();
+};
+
+//may need to add constructor to set head
+Stack::Stack(){
+    head=NULL;
+}
+
+Stack::Stack(char inp){
+    head->data=inp;
+    head->next=NULL;
+}
+
+void Stack::add(char userInp){
+    Node* newEntry = new Node(userInp);
+    if(head==NULL){
+        head = newEntry;
+    }else{
+        newEntry->next=head;
+        head = newEntry;
+    }
+}
+
+void Stack::remove(){
+    Node* oldHead = head;
+    head = head->next;
+    delete oldHead;
 }
